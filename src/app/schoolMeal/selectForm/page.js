@@ -58,6 +58,7 @@ export default function Form() {
                     setScData={setScData}
                     scList={scList}
                     setScList={setScList}
+                    setOpen={setOpen}
                 />
             )}
         </div>
