@@ -20,7 +20,7 @@ export default function ScSearchModal(props) {
 
         fetch(
             "https://open.neis.go.kr/hub/schoolInfo?Key=" +
-                process.env.NEXT_PUBLIC_SCHOOLINFO_API_KEY +
+                process.env.NEXT_PUBLIC_SCINFO_API_KEY +
                 "&SCHUL_NM=" +
                 searchSchulNm +
                 "&Type=json",
@@ -57,6 +57,7 @@ export default function ScSearchModal(props) {
                                         onClick={() => {
                                             props.setScData({
                                                 ...props.scData,
+
                                                 // 시도교육청코드
                                                 atptOfcdcScCode:
                                                     elmt.ATPT_OFCDC_SC_CODE,
