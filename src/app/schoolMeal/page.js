@@ -1,12 +1,10 @@
 "use client";
 
-import ScSearchModal from "@/app/schoolMeal/selectForm/component/modal/scSearchModal";
+import ScSearchModal from "@/containers/schoolMeal/scSearchModal";
 import { useEffect, useState } from "react";
+import List from "../../containers/schoolMeal/scMealList";
 
 export default function Form() {
-    // 검색 조건
-    const [filter, setFilter] = useState({});
-
     // 학교정보
     const [scData, setScData] = useState(
         // 시도교육청코드
@@ -23,18 +21,24 @@ export default function Form() {
         }
     );
 
-    // 급식정보
-    const [mealData, setMealData] = useState({});
-
     // 학교목록
     const [scList, setScList] = useState([]);
 
     // 학교 조회 모달 open 여부
     const [open, setOpen] = useState(false);
 
+    // 급식 정보
+    const [scMealDatas, setScMealDatas] = useState({
+        cnt: 0,
+        datas: [],
+    });
+
+    useEffect(() => {
+        console.log(scMealDatas);
+    }, [scMealDatas]);
+
     // 급식 조회
-    const getScMeal = () => {
-        console.log(scData);
+    const getScMeal = async () => {
         const options = {
             method: "GET",
         };
@@ -47,18 +51,17 @@ export default function Form() {
             "&SD_SCHUL_CODE=" +
             scData.sdSchulCode;
 
-        if(scData.mmealScCode != 0) {
+        if (scData.mmealScCode != 0) {
             url += "&MMEAL_SC_CODE=" + scData.mmealScCode;
         }
 
-        fetch(
-            url,
-            options
-        )
-            .then((resp) => resp.json())
-            .then((result) => {
-                console.log(result);
-            });
+        const resp = await fetch(url);
+        const datas = await resp.json();
+        setScMealDatas({
+            cnt: datas.mealServiceDietInfo[0].head[0].list_total_count,
+            datas: datas.mealServiceDietInfo[1].row,
+        });
+        console.log(datas);
     };
 
     return (
@@ -130,6 +133,31 @@ export default function Form() {
             <div className="mr-10">
                 <input type="button" value="검색" onClick={getScMeal} />
             </div>
+
+            <ul>
+                {scMealDatas.datas.map((elmt) => {
+                    return (
+                        <div key={elmt.DDISH_NM} className="mr-10 bd-gray1">
+                            <div className="mr-bt-5">
+                                <p className="txt-title">급식일자</p>
+                                <div>{elmt.MLSV_YMD}</div>
+                            </div>
+                            <div className="mr-bt-5">
+                                <p className="txt-title">구분</p>
+                                <div>{elmt.MMEAL_SC_NM}</div>
+                            </div>
+                            <div className="mr-bt-5">
+                                <p className="txt-title">메뉴</p>
+                                <span
+                                    dangerouslySetInnerHTML={{
+                                        __html: elmt.DDISH_NM,
+                                    }}
+                                ></span>
+                            </div>
+                        </div>
+                    );
+                })}
+            </ul>
 
             {open && (
                 <ScSearchModal

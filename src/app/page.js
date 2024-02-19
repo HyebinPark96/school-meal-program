@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Header from "./component/header";
-import Footer from "./component/footer";
+import Header from "../components/header";
+import Footer from "../components/footer";
 
 export default function Home() {
     return (
@@ -14,7 +14,7 @@ export default function Home() {
             </div>
 
             <div>
-                <Link href="/schoolMeal/selectForm">
+                <Link href="/schoolMeal">
                     <input type="button" value="급식조회" />
                 </Link>
             </div>

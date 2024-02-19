@@ -8,9 +8,21 @@
 }
 
 .mr-rg-5 {
-    margin: 5px;
+    margin-right: 5px;
+}
+
+.mr-bt-5 {
+    margin-bottom: 5px;
 }
 
 .mr-10 {
     margin: 10px;
+}
+
+.bd-gray1 {
+    border: 1px solid gray
+}
+
+.txt-title {
+    font-weight: bold;
 }
