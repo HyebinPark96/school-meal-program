@@ -42,7 +42,12 @@ export default function ScSearchModal(props) {
                 value={searchSchulNm || ""}
                 onChange={(e) => setSearchSchulNm(e.target.value)}
             />
-            <input type="button" value="검색" onClick={getScInfo} />
+            <button 
+                type="button" 
+                value="검색"
+                className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" 
+                onClick={getScInfo} 
+            >검색</button>
             {props.scList.length > 0 && (
                 <div>
                     <div>[학교 목록]</div>
@@ -54,6 +59,7 @@ export default function ScSearchModal(props) {
                                     <input
                                         type="button"
                                         value="선택"
+                                        className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                         onClick={() => {
                                             props.setScData({
                                                 ...props.scData,

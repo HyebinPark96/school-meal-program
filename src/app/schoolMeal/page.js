@@ -21,6 +21,9 @@ export default function Form() {
         }
     );
 
+    // 주간/월간
+    const [viewType, setViewType] = useState("주간")
+
     // 학교목록
     const [scList, setScList] = useState([]);
 
@@ -32,10 +35,6 @@ export default function Form() {
         cnt: 0,
         datas: [],
     });
-
-    useEffect(() => {
-        console.log(scMealDatas);
-    }, [scMealDatas]);
 
     // 급식 조회
     const getScMeal = async () => {
@@ -61,15 +60,14 @@ export default function Form() {
             cnt: datas.mealServiceDietInfo[0].head[0].list_total_count,
             datas: datas.mealServiceDietInfo[1].row,
         });
-        console.log(datas);
     };
 
     return (
-        // 급식 검색 양식
         <div>
+
             {/* 학교명 */}
             <div className="mr-5">
-                <label>* 학교명</label>
+                <label className="txt-title">학교명</label>
                 <div>
                     <input
                         type="text"
@@ -84,9 +82,10 @@ export default function Form() {
                     />
                 </div>
             </div>
-            {/* 구분 */}
+
+            {/* 급식구분 */}
             <div className="mr-5">
-                <label>* 구분</label>
+                <label className="txt-title">급식구분</label>
                 <div>
                     <input
                         type="radio"
@@ -127,6 +126,33 @@ export default function Form() {
                         checked={scData.mmealScCode === "3"}
                     />
                     석식
+                </div>
+            </div>
+
+            {/* 양식 */}
+            <div className="mr-5">
+                <label className="txt-title">양식</label>
+                <div>
+                    <input
+                        type="radio"
+                        className="mr-rg-5"
+                        value="주간"
+                        onChange={(e) =>
+                            setViewType(e.target.value)
+                        }
+                        checked={viewType === "주간"}
+                    />
+                    주간
+                    <input
+                        type="radio"
+                        className="mr-rg-5"
+                        value="월간"
+                        onChange={(e) =>
+                            setViewType(e.target.value)
+                        }
+                        checked={viewType === "월간"}
+                    />
+                    월간
                 </div>
             </div>
 
